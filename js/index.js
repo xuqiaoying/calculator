@@ -19,8 +19,10 @@
     let Point = document.querySelector('.point');
     let Percent = document.querySelector('.percent');
 
+
+
     const RESULT_WIDTH = 1 - 0.08 * 2;
-    let operators = ['+', '-', '×', '÷'];
+    let operators = ['+', '-', '*', '/'];
 
 
     Percent.addEventListener('click', function () {
@@ -43,28 +45,35 @@
             calculator.result = '';
         } else {
             calculator.num = calculator.num.slice(0, -1);
+            calculator.result = calculator.result.slice(0, -1);
         }
         setNum(calculator.num);
         resultNum(calculator.result);
     });
 
 
+    // Operators.addEventListener('click',function(){
+    //     if(operators.indexOf(calculator.num[calculator.num.length - 1]) > -1) {
+    //         let operators = event.currentTarget.getAttribute('data-operator');
+    //     }
 
-    function handleOperators(operator) {
+    // });
+
+    function handleOperators(op) {
         return function () {
-            let operator = event.target.dataset.operator;
             if (operators.indexOf(calculator.num[calculator.num.length - 1]) > -1) {
-                setNum(calculator.num.slice(0, calculator.num.length - 1) + operator);
+                calculator.num = calculator.num.slice(0, calculator.num.length - 1) + op;
+                setNum(calculator.num);
             } else {
-                setNum(calculator.num += operator);
+                setNum(calculator.num + op);
             }
         }
     }
 
     Add.addEventListener('click', handleOperators('+'));
     Min.addEventListener('click', handleOperators('-'));
-    Mul.addEventListener('click', handleOperators('×'));
-    Division.addEventListener('click', handleOperators('÷'));
+    Mul.addEventListener('click', handleOperators('*'));
+    Division.addEventListener('click', handleOperators('/'));
 
     Point.addEventListener('click', function () {
         if (calculator.num.endsWith('.')) return;
@@ -85,14 +94,16 @@
 
 
     Equal.addEventListener('click', function () {
-        if (operators.indexOf(calculator.num[calculator.num.length - 1]) > -1) {
-            calculator.result = eval(calculator.num.slice(0, -1));
-            //resultNum(eval(calculator.num));
-        } else {
-            resultNum(eval(calculator.num));
-        }
-        setNum(eval(calculator.num));
-    });
+            if (operators.indexOf(calculator.num[calculator.num.length - 1]) > -1) {
+                calculator.result = eval(calculator.num.slice(0, -1));
+                //resultNum(eval(calculator.num));
+            } else {
+                resultNum(eval(calculator.num));
+            }
+            setNum(eval(calculator.num));
+        });
+
+
 
 
 
