@@ -20,6 +20,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    -webkit-tap-highlight-color:transparent;
 }
 
 .header {
